@@ -40,7 +40,7 @@ playlist_percent = 40
 album_percent = 40
 
 [device]
-name = "spotify-player"
+name = "spotify-player-mb"
 device_type = "speaker"
 volume = 70
 bitrate = 320
