@@ -1,7 +1,7 @@
 cmd - return : osacript ~/.config/skhd/iterm.scpt
 
 cmd - 1 : open -na 'Emacs'
-cmd - 2 : open -na 'kitty'
+cmd - 2 : open -na 'Alacritty'
 cmd - 3 : open -na 'Finder'
 
 ctrl - e : yabai -m space --toggle show-desktop
