@@ -13,7 +13,7 @@ ctrl - h : yabai -m window --focus west
 ctrl - l : yabai -m window --focus east
 
 #change focus between external displays (left and right)
-ctrl - s: yabai -m display --focus west
+ctrl - f: yabai -m display --focus west
 ctrl - g: yabai -m display --focus east
 ctrl - z: yabai -m display --focus south
 ctrl - q: yabai -m display --focus north
