@@ -4,7 +4,7 @@ cmd - 1 : open -na 'Emacs'
 cmd - 2 : open -na 'Alacritty'
 cmd - 3 : open -na 'Finder'
 
-ctrl - e : yabai -m space --toggle show-desktop
+# ctrl - e : yabai -m space --toggle show-desktop
 
 # change window focus within space
 ctrl - j : yabai -m window --focus south
