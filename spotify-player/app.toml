@@ -1,5 +1,4 @@
 theme = "dracula"
-client_id = "265c085ab022419a99a66ecaacf88dd5"
 client_port = 8080
 login_redirect_uri = "http://127.0.0.1:8989/login"
 playback_format = """
