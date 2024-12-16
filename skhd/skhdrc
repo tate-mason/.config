@@ -41,7 +41,7 @@ shift + ctrl - e : yabai -m space --balance
 
 # swap windows
 shift + ctrl - j : yabai -m window --swap south
-shift + ctrl - k : yabai -m window --swap north
+# shift + ctrl - k : yabai -m window --swap north
 shift + ctrl - h : yabai -m window --swap west
 shift + ctrl - l : yabai -m window --swap east
 

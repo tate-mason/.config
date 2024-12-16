@@ -12,7 +12,8 @@ if [ $SELECTED = true ]; then
                          label.color=0xff000000 \
                          icon.color=0xff000000
 else
-  sketchybar --set $NAME background.drawing=off \
+  sketchybar --set $NAME background.drawing=on \
+                         background.color=0xfffafafa \
                          label.color=$ACCENT_COLOR \
                          icon.color=$ACCENT_COLOR
 fikground.drawing="$SELECTED"

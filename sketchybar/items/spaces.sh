@@ -15,7 +15,7 @@ done
 
 sketchybar --add item space_separator left                             \
            --set space_separator icon="|"                                \
-                                 icon.color=0xffa37acc \
+                                 icon.color=$WHITE \
                                  icon.padding_left=4                   \
                                  label.drawing=off                     \
                                  background.drawing=off                \
