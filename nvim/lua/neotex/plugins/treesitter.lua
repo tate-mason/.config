@@ -44,6 +44,7 @@ return {
         "latex",
         "markdown_inline",
         "julia",
+        "rnoweb",
         -- "latex",
         -- "javascript",
         -- "typescript",
