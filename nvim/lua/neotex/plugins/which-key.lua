@@ -1,15 +1,25 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 200
-  end,
+  dependencies = {
+    'echasnovski/mini.nvim',
+  },
   opts = {
     setup = {
-      show_help = true,
+      show_help = false,
+      show_keys = false,        -- show the currently pressed key and its label as a message in the command line
+      notify = false,           -- prevent which-key from automatically setting up fields for defined mappings
+      triggers = {
+        { "<leader>", mode = { "n", "v" } },
+      },
       plugins = {
         presets = {
+          marks = false,        -- shows a list of your marks on ' and `
+          registers = false,    -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+          spelling = {
+            enabled = false,    -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            suggestions = 10,   -- how many suggestions should be shown in the list?
+          },
           operators = false,    -- adds help for operators like d, y, ... and registers them for motion / text object completion
           motions = false,      -- adds help for motions
           text_objects = false, -- help for text objects triggered after entering an operator
@@ -17,25 +27,25 @@ return {
           nav = false,          -- misc bindings to work with windows
           z = false,            -- bindings for folds, spelling and others prefixed with z
           g = false,            -- bindings for prefixed with g
-          marks = false,        -- shows a list of your marks on ' and `
-          registers = false,    -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-          spelling = {
-            enabled = false,    -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-            suggestions = 10,   -- how many suggestions should be shown in the list?
-          },
-          -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-          -- No actual key bindings are created
         },
       },
-      key_labels = {
-        -- override the label used to display some keys. It doesn't effect WK in any other way.
-        -- For example:
-        -- ["<space>"] = "SPC",
-        -- ["<CR>"] = "RET",
-        -- ["<tab>"] = "TAB",
+      win = {
+        no_overlap = true,
+        -- width = 1,
+        -- height = { min = 4, max = 25 },
+        -- col = 0,
+        -- row = math.huge,
+        border = "rounded", -- can be 'none', 'single', 'double', 'shadow', etc.
+        padding = { 1, 2 }, -- extra window padding [top/bottom, right/left]
+        title = false,
+        title_pos = "center",
+        zindex = 1000,
+        -- Additional vim.wo and vim.bo options
+        bo = {},
+        wo = {
+          winblend = 10, -- value between 0-100 0 for fully opaque and 100 for fully transparent
+        },
       },
-      -- triggers = "auto", -- automatically setup triggers
-      triggers = { "<leader>" }, -- or specify a list manually
       -- add operators that will trigger motion and text object completion
       -- to enable native operators, set the preset / operators plugin above
       -- operators = { gc = "Comments" },
@@ -44,41 +54,23 @@ return {
         separator = "➜", -- symbol used between a key and it's label
         group = "+",      -- symbol prepended to a group
       },
-      popup_mappings = {
-        scroll_down = "<c-d>", -- binding to scroll down inside the popup
-        scroll_up = "<c-u>",   -- binding to scroll up inside the popup
-      },
-      window = {
-        border = "rounded",       -- none, single, double, shadow
-        position = "bottom",      -- bottom, top
-        margin = { 1, 0, 1, 0 },  -- extra window margin [top, right, bottom, left]
-        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-        winblend = 0,
-        zindex = 1000,            -- positive value to position WhichKey above other floating windows.
-      },
       layout = {
-        height = { min = 4, max = 25 },                                             -- min and max height of the columns
         width = { min = 20, max = 50 },                                             -- min and max width of the columns
+        height = { min = 4, max = 25 },                                             -- min and max height of the columns
         spacing = 3,                                                                -- spacing between columns
         align = "left",                                                             -- align columns left, center or right
       },
-      ignore_missing = true,                                                        -- enable this to hide mappings for which you didn't specify a label
-      hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
-      triggers_nowait = {
+      keys = {
+        scroll_down = "<c-d>", -- binding to scroll down inside the popup
+        scroll_up = "<c-u>",   -- binding to scroll up inside the popup
       },
-      triggers_blacklist = {
-        -- list of mode / prefixes that should never be hooked by WhichKey
-        -- this is mostly relevant for key maps that start with a native binding
-        -- most people should not need to change this
-        i = { "j", "k" },
-        v = { "j", "k" },
-      },
+      sort = { "local", "order", "group", "alphanum", "mod" },
       -- disable the WhichKey popup for certain buf types and file types.
       -- Disabled by default for Telescope
       disable = {
-        buftypes = {},
-        filetypes = {},
-      },
+        bt = { "help", "quickfix", "terminal", "prompt" }, -- for example
+        ft = { "NvimTree" } -- add your explorer's filetype here
+      }
     },
     defaults = {
       buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
@@ -89,11 +81,10 @@ return {
       mode = { "n", "v" },
       b = { "<cmd>VimtexCompile<CR>", "build" },
       c = { "<cmd>vert sb<CR>", "create split" },
-      -- k = { "<cmd>clo<CR>", "kill split" },
-      d = { "<cmd>update! | bdelete!<CR>", "delete buffer" },
+      d = { "<cmd>update! | lua Snacks.bufdelete()<CR>", "delete buffer" },
+      -- d = { "<cmd>update! | bdelete!<CR>", "delete buffer" },
       e = { "<cmd>NvimTreeToggle<CR>", "explorer" },
       j = { "<cmd>clo<CR>", "drop split" },
-      -- h = { "<cmd>Alpha<CR>", "home" },
       i = { "<cmd>VimtexTocOpen<CR>", "index" },
       k = { "<cmd>on<CR>", "max split" },
       q = { "<cmd>wa! | qa!<CR>", "quit" },
@@ -106,92 +97,81 @@ return {
         a = { "<cmd>lua PdfAnnots()<CR>", "annotate" },
         b = { "<cmd>terminal bibexport -o %:p:r.bib %:p:r.aux<CR>", "bib export" },
         c = { "<cmd>:VimtexClearCache All<CR>", "clear vimtex" },
-        e = { "<cmd>e ~/.config/nvim/snippets/tex.snippets<CR>", "edit snippets" },
+        e = { "<cmd>VimtexErrors<CR>", "error report" },
         f = { "<cmd>lua vim.lsp.buf.format()<CR>", "format" },
         g = { "<cmd>e ~/.config/nvim/templates/Glossary.tex<CR>", "edit glossary" },
         -- h = { "<cmd>lua _HTOP_TOGGLE()<CR>", "htop" },
         h = { "<cmd>LocalHighlightToggle<CR>", "highlight" },
         k = { "<cmd>VimtexClean<CR>", "kill aux" },
+        l = { "<cmd>LeanInfoviewToggle<CR>", "lean info" },
         -- l = { "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", "LSP" },
         -- m = { "<cmd>MarkdownPreview<CR>", "markdown preview" },
 
-        m = { "<cmd>TermExec cmd='python3 /home/benjamin/Documents/Philosophy/Projects/ModelChecker/Code/src/model_checker %:p:r.py'<CR>", "model checker" },
+        m = { "<cmd>TermExec cmd='cd /home/benjamin/Documents/Philosophy/Projects/ModelChecker/Code && python3 -m src.model_checker %:p:r.py'<CR>", "model checker" },
+        -- m = { "<cmd>TermExec cmd='python3 /home/benjamin/Documents/Philosophy/Projects/ModelChecker/Code/src/model_checker %:p:r.py'<CR>", "model checker" },
         p = { "<cmd>TermExec cmd='python %:p:r.py'<CR>", "python" },
-        r = { "<cmd>VimtexErrors<CR>", "report errors" },
+        r = { "<cmd>AutolistRecalculate<CR>", "reorder list" },
+        t = { "<cmd>terminal latexindent -w %:p:r.tex<CR>", "tex format" },
         u = { "<cmd>cd %:p:h<CR>", "update cwd" },
         v = { "<plug>(vimtex-context-menu)", "vimtex menu" },
         w = { "<cmd>VimtexCountWords!<CR>", "word count" },
         -- w = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.docx'<CR>" , "word"},
         -- s = { "<cmd>lua function() require('cmp_vimtex.search').search_menu() end<CR>"           , "search citations" },
-        s = { "<cmd>TermExec cmd='ssh brastmck@eofe10.mit.edu'<CR>", "ssh" },
+        s = { "<cmd>e ~/.config/nvim/snippets/tex.snippets<CR>", "snippets edit" },
+        S = { "<cmd>TermExec cmd='ssh brastmck@eofe10.mit.edu'<CR>", "ssh" },
       },
-      -- c = {
-      --   name = "CITATION",
-      --   t = { "<cmd>Telescope bibtex format_string=\\citet{%s}<CR>", "\\citet" },
-      --   p = { "<cmd>Telescope bibtex format_string=\\citep{%s}<CR>", "\\citep" },
-      --   s = { "<cmd>Telescope bibtex format_string=\\citepos{%s}<CR>", "\\citepos" },
-      -- },
       f = {
         name = "FIND",
+        a = { "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", "all files" },
         b = {
           "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>",
           "buffers",
         },
         c = { "<cmd>Telescope bibtex format_string=\\citet{%s}<CR>", "citations" },
         f = { "<cmd>Telescope live_grep theme=ivy<CR>", "project" },
+        l = { "<cmd>Telescope resume<CR>", "last search" },
+        q = { "<cmd>Telescope quickfix<CR>", "quickfix" },
         g = { "<cmd>Telescope git_commits<CR>", "git history" },
-        -- g = { "<cmd>Telescope git_branches<CR>", "branches" },
         h = { "<cmd>Telescope help_tags<CR>", "help" },
         k = { "<cmd>Telescope keymaps<CR>", "keymaps" },
-        -- m = { "<cmd>Telescope man_pages<CR>", "man pages" },
         r = { "<cmd>Telescope registers<CR>", "registers" },
         t = { "<cmd>Telescope colorscheme<CR>", "theme" },
+        s = { "<cmd>Telescope grep_string<CR>", "string" },
         w = { "<cmd>lua SearchWordUnderCursor()<CR>", "word" },
         y = { "<cmd>YankyRingHistory<CR>", "yanks" },
+        -- m = { "<cmd>Telescope man_pages<CR>", "man pages" },
         -- c = { "<cmd>Telescope commands<CR>", "commands" },
         -- r = { "<cmd>Telescope oldfiles<CR>", "recent" },
       },
       g = {
         name = "GIT",
         b = { "<cmd>Telescope git_branches<CR>", "checkout branch" },
-        -- c = { "<cmd>Telescope git_commits<CR>", "commits" },
+        c = { "<cmd>Telescope git_commits<CR>", "git commits" },
         d = { "<cmd>Gitsigns diffthis HEAD<CR>", "diff" },
-        g = { "<cmd>LazyGit<CR>", "lazygit" },
-        -- h = { "<cmd>Gitsigns hunk_history<CR>", "hunk history" },
+        g = { "<cmd>lua Snacks.lazygit()<cr>", "lazygit" },
         k = { "<cmd>Gitsigns prev_hunk<CR>", "prev hunk" },
         j = { "<cmd>Gitsigns next_hunk<CR>", "next hunk" },
-        l = { "<cmd>Gitsigns blame_line<CR>", "line blame" },
+        l = { "<cmd>Gitsigns blame_line<CR>", "line blame" }, -- TODO: use snacks?
         p = { "<cmd>Gitsigns preview_hunk<CR>", "preview hunk" },
+        s = { "<cmd>Telescope git_status<CR>", "git status" },
         t = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "toggle blame" },
-        -- o = { "<cmd>Telescope git_status<CR>", "open changed file" },
-        -- r = { "<cmd>lua require 'gitsigns'.reset_hunk()<CR>", "reset hunk" },
-        -- s = { "<cmd>lua require 'gitsigns'.stage_hunk()<CR>", "stage hunk" },
-        -- u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<CR>", "unstage hunk" },
       },
-      -- h = {
-      --   name = "HARPOON",
-      --   m = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark" },
+      h = {
+        name = "AI HELP",
+        a = { "<cmd>AvanteAsk<CR>", "ask" },
+        b = { "<cmd>AvanteBuild<CR>", "build dependencies" },
+        c = { "<cmd>AvanteChat<CR>", "chat" },
+        C = { "<cmd>AvanteClear<CR>", "clear" },
+        e = { "<cmd>AvanteEdit<CR>", "edit" },
+        m = { "<cmd>AvanteShowRepoMap<CR>", "map repo" },
+        p = { "<cmd>AvanteSwitchProvider<CR>", "switch provider" },
+        r = { "<cmd>AvanteRefresh<CR>", "refresh assistant" },
+        t = { "<cmd>AvanteToggle<CR>", "toggle assistant" },
+      },
+      --   HARPOON
+      --   a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark" },
       --   n = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
       --   p = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
-      -- (?) },
-      -- -- NEORG LIST MAPPINGS
-      -- l = {
-      --   name = "LIST",
-      --   a = { "<cmd>Neorg keybind norg core.qol.todo_items.todo.task_ambiguous<CR>", "ambiguous" },
-      --   b = { "<cmd>Neorg keybind norg core.promo.demote<CR>", "backwards indent" },
-      --   c = { "<cmd>Neorg keybind norg core.qol.todo_items.todo.task_cancelled<CR>", "cancel" },
-      --   d = { "<cmd>Neorg keybind norg core.qol.todo_items.todo.task_done<CR>", "done" },
-      --   f = { "<cmd>Neorg keybind norg core.promo.promote<CR>", "forward indent" },
-      --   i = { "<cmd>Neorg keybind norg core.qol.todo_items.todo.task_important<CR>", "important" },
-      --   n = { "<cmd>Neorg keybind norg core.itero.next-iteration<CR>", "new task" },
-      --   -- n = { "<cmd>set filetype=norg<CR>", "neorg" },
-      --   p = { "<cmd>Neorg keybind norg core.qol.todo_items.todo.task_pending<CR>", "pending" },
-      --   r = { "<cmd>Neorg keybind norg core.qol.todo_items.todo.task_recurring<CR>", "recurring" },
-      --   t = { "<cmd>Neorg toggle-concealer<CR>", "toggle concealer" },
-      --   u = { "<cmd>Neorg keybind norg core.qol.todo_items.todo.task_undone<CR>", "undone" },
-      --   v = { "<cmd>Neorg keybind norg core.pivot.invert-list-type<CR>", "invert list" },
-      --   -- t = { "<cmd>Neorg keybind norg core.pivot.toggle-list-type<CR>", "toggle list" },
-      -- },
       -- LIST MAPPINGS
       L = {
         name = "LIST",
@@ -256,6 +236,24 @@ return {
         p = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.pdf' open=0<CR>", "pdf" },
         v = { "<cmd>TermExec cmd='zathura %:p:r.pdf &' open=0<CR>", "view" },
         -- x = { "<cmd>echo "run: unoconv -f pdf path-to.docx""  , "word to pdf"},
+      },
+      r = {
+        name = "RUN",
+        d = { "<cmd>Dashboard<cr>", "Dashboard" },
+        l = { "vim.diagnostics.setloclist", "locate errors" },
+        n = { "function() vim.diagnostic.goto_next{popup_opts = {show_header = false}} end", "next" },
+        p = { "function() vim.diagnostic.goto_prev{popup_opts = {show_header = false}} end", "prev" },
+        r = { "<cmd>ReloadConfig<cr>", "Reload Configs" },
+        h = { "<cmd>Hardtime toggle<cr>", "Hardtime Toggle" },
+        s = { "<cmd>lua Snacks.notifier.show_history()<cr>", "Show Notifications" },
+        -- d = { "function() vim.diagnostic.open_float(0, { scope = 'line', header = false, focus = false }) end", "diagnostics" },
+    -- map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+    -- map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+    -- map('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
+    -- map('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
+    -- map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+    -- map('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+    -- map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')prev{popup_opts = {show_header = false}} end", "previous" },
       },
       s = {
         name = "SURROUND",
