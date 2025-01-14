@@ -1,0 +1,22 @@
+import = [
+  "/opt/homebrew/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml"
+]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "Buttonless"
+opacity = 0.7
+blur = true
+option_as_alt = "Both"
+
+  [window.padding]
+  x = 10
+  y = 10
+
+[font]
+size = 18
+
+  [font.normal]
+  family = "Hack Nerd Font Mono"
