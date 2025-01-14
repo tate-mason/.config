@@ -17,7 +17,3 @@ normal.family = "Hack Nerd Font Mono"
 
 size = 18
 
-[general]
-import =[
-  "~/.config/alacritty/themes/themes/gruvbox_dark.toml"
-]
