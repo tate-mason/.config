@@ -1,7 +1,3 @@
-general.import = [
-  "/opt/homebrew/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml"
-]
-
 [env]
 TERM = "xterm-256color"
 
