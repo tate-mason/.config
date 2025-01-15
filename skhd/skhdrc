@@ -2,7 +2,7 @@ cmd - return : osacript ~/.config/skhd/iterm.scpt
 
 ctrl - 1 : open -na 'Firefox'
 ctrl - 2 : open -na 'Alacritty'
-ctrl - 3 : open -na 'ChatGPT'
+ctrl - 3 : open -na 'Visual Studio Code'
 
 # ctrl - a : yabai -m space --toggle show-desktop
 
