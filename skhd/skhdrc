@@ -1,6 +1,6 @@
 cmd - return : osacript ~/.config/skhd/iterm.scpt
 
-ctrl - 1 : open -na 'Firefox'
+ctrl - 1 : open -na 'Zen Browser'
 ctrl - 2 : open -na 'Alacritty'
 ctrl - 3 : open -na 'Visual Studio Code'
 
