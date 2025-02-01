@@ -2,7 +2,7 @@ cmd - return : osacript ~/.config/skhd/iterm.scpt
 
 ctrl - 1 : open -na 'Zen Browser'
 ctrl - 2 : open -na 'Ghostty'
-ctrl - 3 : open -na 'Visual Studio Code'
+ctrl - 3 : open -na 'Football Manager 2024'
 
 # ctrl - a : yabai -m space --toggle show-desktop
 
