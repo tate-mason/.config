@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-general.import = [
-=======
-import = [
->>>>>>> master
-  "/opt/homebrew/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml"
-]
-
 [env]
 TERM = "xterm-256color"
 
@@ -21,6 +13,5 @@ option_as_alt = "Both"
 
 [font]
 size = 18
-
   [font.normal]
   family = "Hack Nerd Font Mono"

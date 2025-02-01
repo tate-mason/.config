@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-general.import = [
-=======
 import = [
->>>>>>> master
   "/opt/homebrew/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml"
 ]
 

@@ -7,13 +7,13 @@
 source "$CONFIG_DIR/colors.sh" # Loads all defined colors
 
 if [ $SELECTED = true ]; then
-  sketchybar --set $NAME background.drawing=on \
+  sketchybar --set $NAME background.drawing=off \
                          background.color=0xfffafafa \
                          label.color=0xff000000 \
                          icon.color=0xff000000
 else
-  sketchybar --set $NAME background.drawing=on \
+  sketchybar --set $NAME background.drawing=off \
                          background.color=0xfffafafa \
                          label.color=$ACCENT_COLOR \
                          icon.color=$ACCENT_COLOR
-fikground.drawing="$SELECTED"
+fi
