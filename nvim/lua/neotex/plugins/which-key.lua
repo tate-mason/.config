@@ -87,7 +87,7 @@ return {
       j = { "<cmd>clo<CR>", "drop split" },
       i = { "<cmd>VimtexTocOpen<CR>", "index" },
       k = { "<cmd>on<CR>", "max split" },
-      q = { "<cmd>wa! | qa!<CR>", "quit" },
+      -- q = { "<cmd>wa! | qa!<CR>", "quit" },
       u = { "<cmd>Telescope undo<CR>", "undo" },
       v = { "<cmd>VimtexView<CR>", "view" },
       w = { "<cmd>wa!<CR>", "write" },
@@ -236,6 +236,16 @@ return {
         p = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.pdf' open=0<CR>", "pdf" },
         v = { "<cmd>TermExec cmd='zathura %:p:r.pdf &' open=0<CR>", "view" },
         -- x = { "<cmd>echo "run: unoconv -f pdf path-to.docx""  , "word to pdf"},
+      },
+      q = {
+        name = "QUARTO",
+        p = { "<cmd>:lua require'quarto'.quartoPreview()<cr>", "Preview" },
+        q = { "<cmd>:lua require'quarto'.quartoClosePreview()<cr>", "Quiet Preview" },
+        r = {
+          a = { "<cmd>:QuartoSendAll<cr>", "Run [a]ll" },
+          b = { "<cmd>:QuartoSendBelow<cr>", "Run [b]elow" },
+          r = { "<cmd>:QuartoSendAbove<cr>", "To cu[r]sor" },
+        },
       },
       r = {
         name = "RUN",
