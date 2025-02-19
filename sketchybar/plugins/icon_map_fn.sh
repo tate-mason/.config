@@ -424,15 +424,9 @@ function icon_map() {
   "WhatsApp")
     icon_result=":whats_app:"
     ;;
-  "Ghostty")
-    icon_result=":ghostty:"
-    ;;
   *)
     icon_result=":default:"
     ;;
   esac
 }
 
-icon_map "$1"
-
-echo "$icon_result"
