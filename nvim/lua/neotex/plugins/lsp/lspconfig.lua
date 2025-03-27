@@ -38,6 +38,11 @@ return {
     --   filetypes = { "html", "typescriptreact", "javascriptreact" }, -- , "css", "sass", "scss", "less", "svelte"
     -- })
 
+    -- configure R server
+    lspconfig["r_language_server"].setup({
+      capabilities = default,
+    })
+
     -- configure python server
     lspconfig["pyright"].setup({
       capabilities = default,
