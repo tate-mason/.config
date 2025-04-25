@@ -1,0 +1,6 @@
+[general]
+search_limit = 7
+output_directory = "~/.config/BeatPrints/"
+[credentials]
+client_id = "4804007e98fc4f089dfa646fc05b133d"
+client_secret = "8d25b44ec4be41c4973b900c8c755f94"
