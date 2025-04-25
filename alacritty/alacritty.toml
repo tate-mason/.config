@@ -1,9 +1,8 @@
-<<<<<<< HEAD
 general.import = [
-=======
-import = [
->>>>>>> master
+  import = [
+  master
   "/opt/homebrew/lib/node_modules/alacritty-themes/themes/Gruvbox-Dark.toml"
+]
 ]
 
 [env]

@@ -1,2 +1,2 @@
-require("neotex.core")
-require("neotex.bootstrap")
+-- bootstrap lazy.nvim, LazyVim and your plugins
+require("config.lazy")
