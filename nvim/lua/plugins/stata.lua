@@ -1,0 +1,3 @@
+return {
+  "poliquin/stata-vim",
+}
