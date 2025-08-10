@@ -45,3 +45,4 @@
 theme = tokyonight
 font-family = Hack
 background-opacity = 0.4
+window-decoration = none
