@@ -1,3 +1,8 @@
 return {
-  'jmbuhr/otter.nvim',
+  "jmbuhr/otter.nvim",
+  opts = {
+    buffers = {
+      write_to_disk = true,
+    },
+  },
 }
