@@ -124,6 +124,7 @@ return {
         "html",
         "javascript",
         "json",
+        "julia",
         "lua",
         "markdown",
         "markdown_inline",
