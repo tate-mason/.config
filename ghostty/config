@@ -42,7 +42,7 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-theme = tokyonight
+theme = Rose Pine Dawn
 font-family = Hack
-background-opacity = 0.4
+background-opacity = 1
 window-decoration = none

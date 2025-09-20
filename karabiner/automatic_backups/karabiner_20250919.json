@@ -5,7 +5,6 @@
                 "rules": [
                     {
                         "description": "Swap \"command + tab\" with \"control + tab\" for easier use inside applications. For example: switching between tabs in your browser, which now matches the other tab related shortcuts.",
-                        "enabled": false,
                         "manipulators": [
                             {
                                 "conditions": [
@@ -90,12 +89,12 @@
                     "identifiers": { "is_keyboard": true },
                     "simple_modifications": [
                         {
-                            "from": { "key_code": "caps_lock" },
-                            "to": [{ "key_code": "escape" }]
-                        },
-                        {
                             "from": { "key_code": "left_command" },
                             "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "caps_lock" },
+                            "to": [{ "key_code": "escape" }]
                         }
                     ]
                 }
