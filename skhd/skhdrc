@@ -2,7 +2,7 @@ cmd - return : osacript ~/.config/skhd/iterm.scpt
 
 ctrl - 1 : open -na 'Zen'
 ctrl - 2 : open -na 'Ghostty'
-ctrl - 3 : open -na 'Notion'
+ctrl - 3 : open -na 'Perplexity'
 
 # ctrl - a : yabai -m space --toggle show-desktop
 
