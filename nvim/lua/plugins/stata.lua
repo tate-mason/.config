@@ -5,7 +5,7 @@ return {
   build = "git pull origin packaging && cd lsp-server && npm init -y && npm install && bun build ./server/src/server.ts --compile --outfile server_bin && cd ..",
   opts = {
     dev = false,
-    stata_license_type = "stata-mp",
+    stata_license_type = "stata-se",
   },
   config = function(_, opts)
     local stata = require("stata-nvim")
