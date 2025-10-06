@@ -42,7 +42,7 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-theme = Rose Pine Dawn
+theme = Rose Pine Moon 
 font-family = Hack
 background-opacity = 1
 window-decoration = none
