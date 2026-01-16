@@ -1,15 +1,12 @@
 return {
-  "rose-pine/neovim",
-  name = "rose-pine",
-  config = function()
-    require("rose-pine").setup({
-      variant = "moon", -- Options: auto, main, moon, dawn
-      dim_inactive_windows = false,
-      styles = {
-        bold = true,
-        italic = true,
-      },
-    })
-    vim.cmd("colorscheme rose-pine")
-  end,
+  {
+    "navarasu/onedark.nvim",
+    priority = 1000, -- make sure to load this before all the other start plugins
+    config = function()
+      require("onedark").setup({
+        style = "darker",
+      })
+      require("onedark").load()
+    end,
+  },
 }

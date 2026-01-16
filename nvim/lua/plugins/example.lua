@@ -9,16 +9,7 @@ if true then return {} end
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-
-  -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
-  },
-
+  -- Load color scheme
   -- change trouble config
   {
     "folke/trouble.nvim",
