@@ -32,5 +32,6 @@ yabai -m rule --add app="^iTerm$" manage=on
 yabai -m rule --add app="^Spotify$" manage=off
 yabai -m rule --add app="^Microsoft Word$" manage=on
 yabai -m rule --add app="^Alacritty$" manage=on
+yabai -m rule --add app="^zathura$" manage=on
 
 yabai -m config external_bar all:37:0
