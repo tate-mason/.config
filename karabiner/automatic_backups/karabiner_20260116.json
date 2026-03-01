@@ -115,25 +115,6 @@
                             "to": [{ "key_code": "left_control" }]
                         }
                     ]
-                },
-                {
-                    "identifiers": {
-                        "is_keyboard": true,
-                        "is_pointing_device": true,
-                        "product_id": 4483,
-                        "vendor_id": 13364
-                    },
-                    "ignore": false,
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "caps_lock" },
-                            "to": [{ "key_code": "escape" }]
-                        },
-                        {
-                            "from": { "key_code": "left_command" },
-                            "to": [{ "key_code": "left_control" }]
-                        }
-                    ]
                 }
             ],
             "name": "Default profile",
