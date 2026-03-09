@@ -44,5 +44,5 @@
 
 theme = Atom One Dark
 font-family = Hack
-background-opacity = 1
+background-opacity = 0.80
 window-decoration = none
