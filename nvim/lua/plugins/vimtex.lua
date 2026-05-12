@@ -10,6 +10,7 @@ return {
     vim.g["tex_flavor"] = "latex" -- how to read tex files
     vim.g["tex_indent_items"] = 0 -- turn off enumerate indent
     vim.g["tex_indent_brace"] = 0 -- turn off brace indent
+    vim.g["vimtex_format_enabled"] = 1
     vim.g["vimtex_context_pdf_viewer"] = "skim" -- external PDF viewer run from vimtex menu command
     vim.g["vimtex_log_ignore"] = { -- Error suppression:
       "Underfull",
@@ -17,5 +18,6 @@ return {
       "specifier changed to",
       "Token not allowed in a PDF string",
     }
+    vim.opt_local.textwidth = 80
   end,
 }
