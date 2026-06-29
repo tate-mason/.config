@@ -7,6 +7,8 @@ return {
   config = function()
     require("catppuccin").setup({
       flavour = "latte",
+      transparent_background = true,
+      show_end_of_buffer = false,
       integrations = {
         telescope = true,
         treesitter = true,
